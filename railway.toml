@@ -1,0 +1,7 @@
+# Railway configuration for Blogify MERN Application
+[build]
+builder = "NIXPACKS"
+root = "./BLOGIFY-backend-main"
+
+[deploy]
+restartPolicyType = "never"
