@@ -16,18 +16,15 @@ export function getPosts(pageNumber = 1) {
     try {
       const { data } = await api.fetchPosts(pageNumber)
       dispatch(setPosts(data.results))
-      let pageInfo = {}
-      pageInfo.totalPosts = data.totalPosts
-      if (data.next) {
-        pageInfo.next = data.next
-      }
-      if (data.previous) {
-        pageInfo.previous = data.previous
+      let pageInfo = {
+        totalPosts: data.totalPosts,
+        next: data.next,
+        previous: data.previous,
       }
       dispatch(setPageInfo(pageInfo))
-      dispatch(setLoading(false))
     } catch (error) {
-      // console.log('get posts error............', error)
+      console.error("Get posts error:", error)
+    } finally {
       dispatch(setLoading(false))
     }
   }
@@ -47,23 +44,18 @@ export function createPost(newPost) {
 export function getPostsBySearch(searchQuery, page) {
   return async (dispatch) => {
     dispatch(setLoading(true))
-    // console.log(searchQuery)
     try {
       const { data } = await api.getPostsBySearch(searchQuery, page)
-      // console.log('search results.........', data)
       dispatch(setPosts(data.results))
       let pageInfo = {}
       pageInfo.totalPosts = data.totalPosts
-      if (data.next) {
-        pageInfo.next = data.next
-      }
-      if (data.previous) {
-        pageInfo.previous = data.previous
-      }
+      if (data.next) pageInfo.next = data.next
+      if (data.previous) pageInfo.previous = data.previous
       dispatch(setPageInfo(pageInfo))
-      dispatch(setLoading(false))
     } catch (error) {
-      // console.log('search result error...........', error)
+      console.error("Search posts error:", error)
+    } finally {
+      dispatch(setLoading(false)) // 🔥 THIS LINE FIXES BLANK PAGE
     }
   }
 }
