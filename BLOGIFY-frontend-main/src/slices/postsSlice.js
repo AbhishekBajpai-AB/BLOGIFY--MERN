@@ -1,37 +1,43 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   posts: [],
   editPost: null,
-  pageInfo: null,
-}
+  pageInfo: {
+    totalPosts: 0,
+    currentPage: 1,
+    numberOfPages: 1,
+  },
+};
 
 const postsSlice = createSlice({
-  name: 'posts',
-  initialState: initialState,
+  name: "posts",
+  initialState,
   reducers: {
-    setPosts(state, value) {
-      state.posts = value.payload
+    setPosts(state, action) {
+      state.posts = action.payload;
     },
-    addNewPost(state, value) {
-      state.posts = [...state.posts, value.payload]
+    addNewPost(state, action) {
+      state.posts = [...state.posts, action.payload];
     },
-    setUpdatePost(state, value) {
+    setUpdatePost(state, action) {
       state.posts = state.posts.map((post) =>
-        post._id === value.payload._id ? value.payload : post
-      )
+        post._id === action.payload._id ? action.payload : post
+      );
     },
-    setEditPost(state, value) {
-      state.editPost = value.payload
+    setEditPost(state, action) {
+      state.editPost = action.payload;
     },
-    setDeletedPost(state, value) {
-      state.posts = state.posts.filter((post) => post._id !== value.payload)
+    setDeletedPost(state, action) {
+      state.posts = state.posts.filter(
+        (post) => post._id !== action.payload
+      );
     },
-    setPageInfo(state, value) {
-      state.pageInfo = value.payload
+    setPageInfo(state, action) {
+      state.pageInfo = action.payload;
     },
   },
-})
+});
 
 export const {
   setPosts,
@@ -40,6 +46,6 @@ export const {
   setUpdatePost,
   setDeletedPost,
   setPageInfo,
-} = postsSlice.actions
+} = postsSlice.actions;
 
-export default postsSlice.reducer
+export default postsSlice.reducer;
