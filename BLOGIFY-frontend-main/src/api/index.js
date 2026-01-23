@@ -1,10 +1,6 @@
 import axios from 'axios'
 const url = process.env.REACT_APP_BACKEND_URL
-const sameOrigin =
-  typeof window !== 'undefined' && url
-    ? url.replace(/\/$/, '') === window.location.origin
-    : false
-const API = axios.create({ baseURL: sameOrigin ? undefined : url })
+const API = axios.create({ baseURL: url || 'http://localhost:5001' })
 
 API.interceptors.request.use((req) => {
   if (localStorage.getItem('user')) {
