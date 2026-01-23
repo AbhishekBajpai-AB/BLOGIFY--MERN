@@ -22,7 +22,7 @@ app.use(
     origin: [
       "http://localhost:3000", // local dev (CRA)
       "http://localhost:5173", // local dev (Vite)
-      "https://carefree-truth-production.up.railway.app" // Railway frontend
+      "https://blogify-mern-production.up.railway.app" // Railway frontend
     ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type", "Authorization"],
@@ -50,7 +50,7 @@ mongoose
   .then(() => {
     console.log("MongoDB connected");
     app.listen(PORT, () =>
-      console.log(`Server running on port ${PORT}`)
+      console.log(`Server running on port ${PORT}`) 
     );
   })
   .catch((error) => {
